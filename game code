@@ -1,0 +1,150 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CSharpFull
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.CursorVisible = false;
+            bool isOpen = true;
+            char[] bag = new char[1];
+            int heals = 100;
+            int ex = 0;
+            int level = 1;
+            int userPositionX = 8;
+            int userPositionY = 16;
+            char[,] map =
+            {
+                {'_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'},
+                {'|',' ',' ','|',' ','X',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|' },
+                {'|','X',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|' },
+                {'|',' ',' ','|',' ',' ',' ',' ',' ','E',' ','|',' ','E',' ',' ',' ','X',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','X',' ',' ',' ',' ',' ',' ','|' },
+                {'|',' ',' ','|','_','_','_','_','_','_','_','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ','_','_','_','_','_','_','_','_','|' },
+                {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','E',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|' },
+                {'|',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|' },
+                {'|','E',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|' },
+                {'|',' ',' ','|','_','_','_','_',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','E',' ',' ','_','_','_','_','_','_','_','_','|' },
+                {'|',' ',' ','|','X',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|' },
+                {'|',' ',' ','|',' ',' ','E',' ',' ',' ','E',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','X',' ',' ',' ',' ',' ',' ','|' },
+                {'|',' ',' ','|',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|' },
+                {'|',' ',' ','|',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ','_','_','_','_','_','_','_','_','|' },
+                {'|',' ',' ','|','_','_','_','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','E',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|' },
+                {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|' },
+                {'|',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ','X',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ','_','_','_','_','_','_','_','_','|' },
+                {'|','X',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','X',' ',' ',' ',' ',' ',' ','|' },
+                {'|','_','_','|','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','|','_','_','_','_','_','_','_','_','_','_','_','_','|'},
+            };
+
+            if (isOpen)
+            {
+                Console.WriteLine("\tМануал по игре!");
+                Console.WriteLine("X - сокровице.");
+                Console.WriteLine("E - враг(наносит 20 урона и приносит 25 опыта).");
+                Console.ReadKey();
+                Console.Clear();
+            }
+
+            while (isOpen)
+            {                
+                for (int i = 0; i < map.GetLength(0); i++)
+                {
+                    for (int j = 0; j < map.GetLength(1); j++)
+                    {
+                        Console.Write(map[i, j]);
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.SetCursorPosition(45, 2);
+
+                Console.Write("Здоровье: " + heals); 
+
+                Console.SetCursorPosition(45, 4);
+
+                Console.Write("Уронь: " + level +" | Опыт: " + ex);
+
+                Console.SetCursorPosition(0, 20);
+
+                Console.Write("Сумка: ");
+
+                for (int i = 0; i < bag.Length; i++)
+                {
+                    Console.Write(bag[i] + " ");
+                }
+
+                Console.SetCursorPosition(userPositionY, userPositionX);
+
+                Console.Write('@');
+
+                ConsoleKeyInfo userKey = Console.ReadKey();
+
+                switch (userKey.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        if (map[userPositionX - 1, userPositionY] != '_' && map[userPositionX - 1, userPositionY] != '|')
+                            userPositionX--;
+
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (map[userPositionX + 1, userPositionY] != '_' && map[userPositionX + 1, userPositionY] != '|')
+                            userPositionX++;
+
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        if (map[userPositionX, userPositionY - 1] != '|' && map[userPositionX, userPositionY - 1] != '_')
+                            userPositionY--;
+
+                        break;
+                    case ConsoleKey.RightArrow:
+                        if (map[userPositionX, userPositionY + 1] != '|' && map[userPositionX, userPositionY + 1] != '_')
+                            userPositionY++;
+
+                        break;
+                    default:
+
+                        break;
+                }
+
+                if (map[userPositionX, userPositionY] == 'X')
+                {
+                    bag[bag.Length - 1] = 'X';
+                    map[userPositionX, userPositionY] = 'O';
+                    char[] tempBag = new char[bag.Length + 1];
+                    for (int i = 0; i < bag.Length; i++)
+                    {
+
+                        tempBag[i] = bag[i];
+                    }
+                    bag = tempBag;
+                }
+                else if (map[userPositionX, userPositionY] == 'E')
+                {
+                    map[userPositionX, userPositionY] = '.';
+                    heals -= 20;
+                    ex += 25;
+                    
+                }
+                if(heals <= 0)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("GAME OVER");
+                    isOpen = false;
+                    Console.ReadKey();
+                }
+                if(ex >= 60)
+                {
+                    ex -=60;
+                    level++;
+                }
+
+                Console.Clear();
+            }
+        }
+    }
+}
